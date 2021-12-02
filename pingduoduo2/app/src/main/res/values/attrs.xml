@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="OrganizerMemberSideBar">
+        <attr name="scaleSize" format="integer"/>
+        <attr name="scaleItemCount" format="integer"/>
+        <attr name="scaleWidth" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="PullListView">
+        <attr name="getMoreType">
+            <enum name="auto" value="0" />
+            <enum name="click" value="1" />
+        </attr>
+        <attr name="addPullHeaderByUser" format="boolean" />
+    </declare-styleable>
+</resources>

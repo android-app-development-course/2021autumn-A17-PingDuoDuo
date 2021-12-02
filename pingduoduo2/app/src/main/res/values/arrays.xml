@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    //fraction 分数
+
+
+
+
+    <string-array name="fraction">
+        <item>1分</item>
+        <item>2分</item>
+        <item>3分</item>
+        <item>4分</item>
+        <item>5分</item>
+    </string-array>
+
+
+    <string-array name="attendance_frequency">
+        <item>每次课</item>
+        <item>一周一次</item>
+        <item>两周一次</item>
+        <item>一个月一次</item>
+        <item>几乎不点</item>
+    </string-array>
+
+    <string-array name="final_exam">
+        <item>90+</item>
+        <item>85-90</item>
+        <item>80-90</item>
+        <item>75-80</item>
+        <item>70-75</item>
+        <item>65-70</item>
+        <item>60-65</item>
+        <item>不及格</item>
+
+    </string-array>
+
+    <string-array name="exam_form">
+        <item>开卷考</item>
+        <item>闭卷考</item>
+        <item>写论文</item>
+        <item>做项目</item>
+        <item>其他</item>
+
+
+    </string-array>
+
+
+    <string-array name="credit">
+        <item>1</item>
+        <item>1.5</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+
+    <string-array name="kinds">
+        <item>创新创业</item>
+        <item>十校公选</item>
+        <item>多元文化</item>
+        <item>大学体育</item>
+        <item>大学英语</item>
+        <item>思政课</item>
+        <item>文化传承</item>
+        <item>社会研究</item>
+        <item>科学思维</item>
+        <item>艺术修养</item>
+        <item>道德推演</item>
+        <item>非正式课程</item>
+        <item>高数</item>
+    </string-array>
+
+    <string-array name="where_run_course">
+        <item>大学城</item>
+        <item>石牌校区</item>
+        <item>南海校区</item>
+        <item>十校公选</item>
+    </string-array>
+
+
+
+</resources>
