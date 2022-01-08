@@ -2,15 +2,21 @@ package com.example.pingduoduo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 
 import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pingduoduo.enity.bo.CourseQueryBo;
 import com.example.pingduoduo.my.MenuMyActivity;
 import com.zxl.library.DropDownMenu;
 
@@ -31,16 +37,139 @@ public class conditionMenuActivity extends AppCompatActivity {
     private Button button;
     private Button button_add;
     private Button button_personal_center;
-
+   private   CourseQueryBo courseQueryBo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        courseQueryBo=new CourseQueryBo();
+        courseQueryBo.setCategory("");
+        courseQueryBo.setCollege("");
+        courseQueryBo.setStatus("");
+        courseQueryBo.setTeacherName("");
+        courseQueryBo.setCourseName("");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_condition_menu);
         mDropDownMenu= (DropDownMenu) findViewById( R.id.dropDownMenu);
-        initView();
+
+
+//        initView();
+        View contentView = getLayoutInflater().inflate(R.layout.contentview, null);
+        mDropDownMenu.setDropDownMenu(Arrays.asList(headers), initViewData(), contentView);
+
+        //该监听回调只监听默认类型，如果是自定义view请自行设置，参照demo
+        mDropDownMenu.addMenuSelectListener(new DropDownMenu.OnDefultMenuSelectListener() {
+            @Override
+            public void onSelectDefaultMenu(int index, int pos, String clickstr) {
+                //index:点击的tab索引，pos：单项菜单中点击的位置索引，clickstr：点击位置的字符串
+//                Toast.makeText(getBaseContext(), clickstr+pos+index, Toast.LENGTH_SHORT).show();
+                //index是横的，pos是竖的
+                Bundle bundle = new Bundle();
+                if (index==0)
+                {
+                    if ((pos==0))
+                    {
+                        courseQueryBo.setCategory("");
+                    }
+
+                    if(pos>0)
+                    {
+                        courseQueryBo.setCategory(category[pos]);
+
+
+                    }
+                    bundle.putString("category",courseQueryBo.getCategory());
+                    bundle.putString("college",courseQueryBo.getCollege());
+                    bundle.putString("status",courseQueryBo.getStatus());
+                    bundle.putString("coursename",courseQueryBo.getCourseName());
+                    bundle.putString("teachername",courseQueryBo.getTeacherName());
+                    courseItemFragment fragment=new courseItemFragment();
+                    fragment.setArguments(bundle);
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                    fragmentTransaction.replace(R.id.haha,fragment);
+
+                    fragmentTransaction.commit();
+
+                }
+                if(index==1)
+                {
+                    if (pos==0)
+                    {
+                        courseQueryBo.setCollege("");
+
+                    }
+                    if (pos>0)
+                    {
+                        courseQueryBo.setCollege(colleges[pos]);
+
+                    }
+                    bundle.putString("category",courseQueryBo.getCategory());
+                    bundle.putString("college",courseQueryBo.getCollege());
+                    bundle.putString("status",courseQueryBo.getStatus());
+                    bundle.putString("coursename",courseQueryBo.getCourseName());
+                    bundle.putString("teachername",courseQueryBo.getTeacherName());
+                    courseItemFragment fragment=new courseItemFragment();
+                    fragment.setArguments(bundle);
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                    fragmentTransaction.replace(R.id.haha,fragment);
+
+                    fragmentTransaction.commit();
+
+                }
+                if(index==2)
+                {
+                    if (pos==0)
+                    {
+                        courseQueryBo.setStatus("");
+
+                    }
+                    if(pos>0)
+                    {
+                        courseQueryBo.setStatus(constellations[pos]);
+
+
+
+
+                    }
+                    bundle.putString("category",courseQueryBo.getCategory());
+                    bundle.putString("college",courseQueryBo.getCollege());
+                    bundle.putString("status",courseQueryBo.getStatus());
+                    bundle.putString("coursename",courseQueryBo.getCourseName());
+                    bundle.putString("teachername",courseQueryBo.getTeacherName());
+                    courseItemFragment fragment=new courseItemFragment();
+                    fragment.setArguments(bundle);
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                    fragmentTransaction.replace(R.id.haha,fragment);
+
+                    fragmentTransaction.commit();
+
+                }
+
+
+            }
+        });
+
+
 
         //动态添加按钮图案
+        final Bundle bundle = new Bundle();
+        bundle.putString("category",courseQueryBo.getCategory());
+        bundle.putString("college",courseQueryBo.getCollege());
+        bundle.putString("status",courseQueryBo.getStatus());
+        bundle.putString("coursename",courseQueryBo.getCourseName());
+        bundle.putString("teachername",courseQueryBo.getTeacherName());
+        courseItemFragment fragment=new courseItemFragment();
+        fragment.setArguments(bundle);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
+        fragmentTransaction.replace(R.id.haha,fragment);
+
+        fragmentTransaction.commit();
         button=new Button(this);
         button=(Button)findViewById(R.id.home);
         Drawable icon_home_fill=getResources().getDrawable(R.drawable.icon_home_fill);
@@ -69,6 +198,7 @@ public class conditionMenuActivity extends AppCompatActivity {
                 第一个参数:上下文对象this
                 第二个参数:目标文件
                  */
+
                 Intent intent = new Intent(conditionMenuActivity.this,conditionMenuActivity.class);
                 startActivity(intent);
 
@@ -98,19 +228,104 @@ public class conditionMenuActivity extends AppCompatActivity {
 
             }
         });
+
+        SearchView viewById = (SearchView) findViewById(R.id.searchView);
+        viewById.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if(TextUtils.isEmpty(query))
+                {
+                    courseQueryBo.setCourseName("");
+                    courseQueryBo.setTeacherName("");
+                }
+
+                else
+                {
+                    courseQueryBo.setCourseName(query);
+                    courseQueryBo.setTeacherName(query);
+                }
+
+
+                Bundle bundle=new Bundle();
+
+                bundle.putString("category",courseQueryBo.getCategory());
+                bundle.putString("college",courseQueryBo.getCollege());
+                bundle.putString("status",courseQueryBo.getStatus());
+                bundle.putString("coursename",courseQueryBo.getCourseName());
+                bundle.putString("teachername",courseQueryBo.getTeacherName());
+
+                courseItemFragment fragment=new courseItemFragment();
+                fragment.setArguments(bundle);
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                fragmentTransaction.replace(R.id.haha,fragment);
+
+                fragmentTransaction.commit();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if(TextUtils.isEmpty(newText))
+                {
+                    courseQueryBo.setCourseName("");
+                    courseQueryBo.setTeacherName("");
+                }
+                return true;
+
+            }
+        });
+
     }
 
     private void initView() {
         View contentView = getLayoutInflater().inflate(R.layout.contentview, null);
         mDropDownMenu.setDropDownMenu(Arrays.asList(headers), initViewData(), contentView);
+
         //该监听回调只监听默认类型，如果是自定义view请自行设置，参照demo
         mDropDownMenu.addMenuSelectListener(new DropDownMenu.OnDefultMenuSelectListener() {
             @Override
             public void onSelectDefaultMenu(int index, int pos, String clickstr) {
                 //index:点击的tab索引，pos：单项菜单中点击的位置索引，clickstr：点击位置的字符串
-                Toast.makeText(getBaseContext(), clickstr, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), clickstr+pos+index, Toast.LENGTH_SHORT).show();
+                //index是横的，pos是竖的
+                if (index==0)
+                {
+                    if(pos>0)
+                    {
+                        courseQueryBo.setCategory(category[pos]);
+                    }
+
+
+                }
+                if(index==1)
+                {
+                    if (pos>0)
+                    {
+                        courseQueryBo.setCollege(colleges[pos]);
+                    }
+
+                }
+                if(index==2)
+                {
+                    if(pos>0)
+                    {
+                        courseQueryBo.setStatus(constellations[pos]);
+                    }
+
+                }
+
+
             }
         });
+
+
+
+
+
+
+
     }
 
     /**
@@ -129,22 +344,23 @@ public class conditionMenuActivity extends AppCompatActivity {
                     if(i==0)
                     {
                         map.put(DropDownMenu.VALUE, category);
-                        map.put(DropDownMenu.SELECT_POSITION,1);
+                        map.put(DropDownMenu.SELECT_POSITION,0);
                     }else
                     {
                         map.put(DropDownMenu.VALUE, constellations);
-                        map.put(DropDownMenu.SELECT_POSITION,1);
+                        map.put(DropDownMenu.SELECT_POSITION,0);
 
                     }
 
                     break;
                 case DropDownMenu.TYPE_LIST_SIMPLE:
                     map.put(DropDownMenu.VALUE, colleges);
-                    map.put(DropDownMenu.SELECT_POSITION,1);
+                    map.put(DropDownMenu.SELECT_POSITION,0);
                     break;
 
             }
             viewDatas.add(map);
+
         }
         return viewDatas;
     }

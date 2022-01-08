@@ -46,13 +46,7 @@
         <!--        分割线-->
 
 
-        <TextView
-            android:id="@+id/user_tv_phoneText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="41dp"
-            android:paddingBottom="10sp"
-            android:text="手机号：" />
+
 
         <ImageView
             android:layout_width="match_parent"
@@ -77,12 +71,12 @@
                 android:src="@drawable/ic_baseline_person_24" />
 
             <TextView
-                android:id="@+id/user_tv_adoptPro"
+                android:id="@+id/my_collect"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/user_iv_adopt"
-                android:text="我的评课"
+                android:text="我的收藏"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 android:typeface="serif" />

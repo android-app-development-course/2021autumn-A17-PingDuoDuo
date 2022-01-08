@@ -19,7 +19,7 @@
 
     <!--url配置-->
 
-    <string name="serverBasePath">http://10.242.42.97:8080/gohome/</string>
+    <string name="serverBasePath">http://10.243.14.16:8081</string>
 
     <string name="insertAdoptMessage">adoptmessage/insertadoptmessage</string>
 
@@ -43,5 +43,7 @@
     <string name="queryAdoptApplimentByUserId2">adoptappliment/queryadoptapplimentbyuserid2</string>
 
     <string name="memberMessageByAreaId">membermessage/membermessageofarea</string>
+    <string name="admin">小瘦猪</string>
+    <string name="password">admin</string>
 
 </resources>

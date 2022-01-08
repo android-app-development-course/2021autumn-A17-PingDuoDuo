@@ -7,11 +7,11 @@
 
 
     <string-array name="fraction">
-        <item>1分</item>
-        <item>2分</item>
-        <item>3分</item>
-        <item>4分</item>
-        <item>5分</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
     </string-array>
 
 
@@ -56,7 +56,7 @@
 
 
     <string-array name="kinds">
-        <item>创新创业</item>
+<!--        <item>创新创业</item>
         <item>十校公选</item>
         <item>多元文化</item>
         <item>大学体育</item>
@@ -68,7 +68,10 @@
         <item>艺术修养</item>
         <item>道德推演</item>
         <item>非正式课程</item>
-        <item>高数</item>
+        <item>高数</item>-->
+        <item>选修课</item>
+        <item>必修课</item>
+        <item>公选课</item>
     </string-array>
 
     <string-array name="where_run_course">
@@ -79,5 +82,38 @@
     </string-array>
 
 
+
+
+
+    <string-array name="college">
+        <item> 计算机学院</item>
+        <item>教育科学学院 </item>
+        <item>政治与行政学院 </item>
+        <item>历史文化学院 </item>
+
+        <item>外国语言文化学院 </item>
+        <item>美术学院 </item>
+        <item>教育信息技术学院 </item>
+        <item>数学科学学院 </item>
+
+        <item>生命科学学院 </item>
+        <item>地理科学学院 </item>
+        <item>心理学院 </item>
+        <item>文学院 </item>
+
+        <item> 经济与管理学院</item>
+        <item>法学院 </item>
+        <item>公共管理学院 </item>
+        <item> 体育科学学院</item>
+
+        <item>音乐学院 </item>
+        <item>物理与电信工程学院 </item>
+        <item>化学学院 </item>
+        <item>信息光电子科技学院 </item>
+
+        <item>旅游管理学院 </item>
+        <item>环境学院 </item>
+
+    </string-array>
 
 </resources>

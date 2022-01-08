@@ -1,8 +1,10 @@
 package com.example.pingduoduo
 
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.JsonWriter
 import android.util.Log
@@ -20,17 +22,15 @@ import com.example.pingduoduo.enity.bo.CourseQueryBo
 import com.google.common.reflect.TypeToken
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.coursename_frag.*
-import okhttp3.FormBody
-import okhttp3.MediaType
+import okhttp3.*
+import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.OkHttpClient
-import okhttp3.RequestBody
 import org.json.JSONObject
 import kotlin.concurrent.thread
 import com.example.pingduoduo.conditionMenuActivity as conditionMenuActivity
 
 
-class courseItemFragment:Fragment() {
+class CollectFragment:Fragment() {
 
 
     private  var courseList=ArrayList<Course>()
@@ -39,6 +39,7 @@ class courseItemFragment:Fragment() {
     var stat=""
     var t_name=""
     var c_name=""
+    var userId = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,6 +61,8 @@ class courseItemFragment:Fragment() {
             stat=bundle?.getString("status").toString()
             t_name=bundle?.getString("teachername").toString()
             c_name=bundle?.getString("coursename").toString()
+            userId= bundle?.getString("userId").toString()
+            Log.i("userId", userId)
         }else
         {
             Log.i("asdasd","1234")
@@ -93,7 +96,7 @@ class courseItemFragment:Fragment() {
 
 
 
-//                Toast.makeText(parent.context,course.courseName+course.teacherName+course.category+course.credits +course.college,Toast.LENGTH_LONG).show()
+                Toast.makeText(parent.context,course.courseName+course.teacherName+course.category+course.credits +course.college,Toast.LENGTH_LONG).show()
                 courseContentActivity2.actionStart(parent.context,course.courseName,course.teacherName,course.category,course.credits,course.college,course.id)
             }
             return holder
@@ -156,10 +159,16 @@ class courseItemFragment:Fragment() {
             var json = gson.toJson(c)
             Log.i("1234",json)
             var requestBody = FormBody.Builder().build();
-            var build = okhttp3.Request.Builder().url(Global.url+"/course/selectAll")
-                .post(RequestBody.create(MediaType.let { "application/json".toMediaTypeOrNull() },json)).build()
 
-            val response=client.newCall(build).execute();
+
+            var urlBuilder = (Global.url+"/course/getCollectedList").toHttpUrlOrNull()
+                ?.newBuilder()
+            urlBuilder?.addQueryParameter("uid",userId)
+            var request = Request.Builder().url(urlBuilder!!.build()).build()
+            /*var build = okhttp3.Request.Builder().url(Global.url+"/course/getCollectedList")
+                .post(RequestBody.create(MediaType.let { "application/json".toMediaTypeOrNull() },json)).build()*/
+
+            val response=client.newCall(request).execute();
             var result=response.body?.string()
             var j=JSONObject(result)
 //            var resultList=JSONArray(j.getString("data"))
